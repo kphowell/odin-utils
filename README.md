@@ -30,4 +30,38 @@ Some tips:
   annotator comments (going up two logging levels (`-vv`) is probably
   overkill unless you're debugging)
 
+## odinclean.py
+
+This module takes a XigtXML-formatted ODIN corpus and adds cleaned
+`odin` tiers if a raw tier exists and a cleaned tier doesn't. This can
+either be run like a filter, which takes a single corpus on stdin and
+prints to stdout:
+
+```sh
+cat 10.xml | odinclean.py > 10-cleaned.xml
+```
+
+Or it can be run with filename arguments, in which case the files are
+modified in-place:
+
+```sh
+odinclean.py ~/odin-2.1/data/by-doc-id/*.xml
+```
+
+## odinnormalize.py
+
+This module behaves just like `odinclean.py`, but it normalizes the
+text contents of the cleaned tier, if available, or else the raw tier.
+
+```sh
+cat 10-cleaned.xml | odinnormalize.py > 10-normalized.xml
+```
+
+or
+
+```sh
+odinnormalize.py ~/odin-2.1/data/by-doc-id/*.xml
+```
+
+
 [Xigt]: http://depts.washington.edu/uwcl/xigt
