@@ -223,12 +223,8 @@ def bit_merge(a, b):
 ## ============================================= ##
 
 def main(arglist=None):
-    class HelpFormatter(argparse.ArgumentDefaultsHelpFormatter,
-                        argparse.RawDescriptionHelpFormatter):
-        pass
-
     parser = argparse.ArgumentParser(
-        formatter_class=HelpFormatter,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
         description="Clean ODIN 'raw' tiers",
         epilog='examples:\n'
             '    odinclean.py by-doc-id/10.xml\n'

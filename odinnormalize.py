@@ -172,12 +172,8 @@ def rejoin_hyphenated_grams(item):
 ## ============================================= ##
 
 def main(arglist=None):
-    class HelpFormatter(argparse.ArgumentDefaultsHelpFormatter,
-                        argparse.RawDescriptionHelpFormatter):
-        pass
-
     parser = argparse.ArgumentParser(
-        formatter_class=HelpFormatter,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
         description="Normalize ODIN 'clean' tiers",
         epilog='examples:\n'
             '    odinnormalize.py by-doc-id/10.xml\n'
