@@ -100,7 +100,10 @@ echo "Creating `basename \"$BYLANGDIR\"`"
 $XIGT partition $DBG --key-path="$LANGPATH" "$BYLANGDIR" "$BYDOCIDDIR"/*.xml
 echo "Sorting IGTs within by-lang corpora by doc-id"
 for f in "$BYLANGDIR"/*.xml; do
-    $XIGT sort $DBG --in-place --igt-key='@id' "$f"
+    $XIGT sort $DBG --in-place \
+        --igt-key='@id' \
+        --tier-deps="segmentation,alignment,dep,head,children,source,target,content" \
+        "$f"
 done
 
 ##
@@ -147,7 +150,10 @@ if [ $INTENTOPT -ne 3 ]; then
     $XIGT partition $DBG --key-path="$LANGPATH" "$BYLANGENRICHEDDIR" "$BYDOCIDENRICHEDDIR"/*.xml
     echo "Sorting IGTs within by-lang corpora by doc-id"
     for f in "$BYLANGENRICHEDDIR"/*.xml; do
-        $XIGT sort $DBG --in-place --igt-key='@id' "$f"
+        $XIGT sort $DBG --in-place \
+            --igt-key='@id' \
+            --tier-deps="segmentation,alignment,dep,head,children,source,target,content" \
+            "$f"
     done
 fi
 
