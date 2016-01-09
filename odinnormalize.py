@@ -67,8 +67,6 @@ def add_normalized_tier(igt, base_tier):
 
 
 def normalize_items(base_tier, norm_id):
-    # TODO: remove blank lines in normalization
-
     # first make copies of the original items
     nrm_items = copy_items(base_tier.items)
     remove_blank_items(nrm_items)  # don't even bother with blank lines
@@ -86,6 +84,7 @@ def normalize_items(base_tier, norm_id):
         remove_example_numbers(item)
         remove_precontent_tags(item)
         rejoin_hyphenated_grams(item)
+        extract_judgment(item)
 
     for i, item in enumerate(nrm_items):
         item.id = '{}{}'.format(norm_id, i + 1)
@@ -159,13 +158,16 @@ def rejoin_hyphenated_grams(item):
     # spaces; remove those spaces (e.g. "dog-  NOM" => "dog-NOM")
     item.text = re.sub(r'\s*-\s*', '-', item.text)
 
-# ignore ungrammatical or questionably lines or those with alternates
-# now we want to include these, separate out the # or * and mark the
-# judgments  for /, it's no longer a bother
-# do this later anyway
-# if line.startswith('*') or line.startswith('#'): or '/' in line:
-#    return None
-
+# judgment extraction adapted from code from Ryan Georgi (PC)
+# don't attempt for still-corrupted lines or those with alternations
+# (detected by looking for '/' in the string)
+def extract_judgment(item):
+    if 'CR' in item.attributes.get('tag','').split('+'):
+        return
+    match = re.match(r'^\s*([*?#]+)[^/]+$', item.text)
+    if match:
+        item.attributes['judgment'] = match.group(1)
+    item.text = re.sub(r'^(\s*)[*?#]+\s*', r'\1', item.text)
 
 ## ============================================= ##
 ## For running as a script rather than a library ##
