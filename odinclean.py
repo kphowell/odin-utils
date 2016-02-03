@@ -82,6 +82,10 @@ def copy_items(items):
     ]
 
 
+def get_tags(item):
+    return item.attributes.get('tag', '').split('+')
+
+
 def merge_diacritics(items):
     """
     Use unicodedata's normalize function first to get combining
@@ -155,8 +159,8 @@ def merge_lines(items):
         # lines are pairs of attributes and content
         prev = newitems[-1]
         cur = items[i]
-        p_tags = prev.attributes.get('tag','').split('+')
-        c_tags = cur.attributes.get('tag','').split('+')
+        p_tags = get_tags(prev)
+        c_tags = get_tags(cur)
         # if no non-CR tags are shared
         if 'CR' not in c_tags or \
            len(set(p_tags).intersection(c_tags).difference(['CR'])) == 0:
@@ -166,6 +170,7 @@ def merge_lines(items):
         if merged is not None:
             # there's no OrderedSet, but OrderedDict will do
             tags = OrderedDict((t,1) for t in p_tags + c_tags)
+            del tags['CR']  # assume we fixed the problem?
             line_nums = ' '.join([prev.attributes.get('line'),
                                   cur.attributes.get('line')])
             prev.attributes['tag'] = '+'.join(tags)
@@ -246,6 +251,7 @@ def main(arglist=None):
 def run(args):
     if args.infiles:
         for fn in args.infiles:
+            logging.info('Cleaning {}'.format(fn))
             xc = xigtxml.load(fn, mode='full')
             clean_corpus(xc)
             xigtxml.dump(fn, xc)
