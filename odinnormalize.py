@@ -240,7 +240,9 @@ def rejoin_translations(items):
     for item in items:
         tags = get_tags(item)
         is_t = tags[0] == 'T' and 'DB' not in tags and 'CR' not in tags
-        marked = re.match(r'^\s*[(\[]?\s*\S+\s*\.?\s*[)\]]?\s*:', item.text)
+        marked = re.match(
+            r'^\s*[(\[]?\s*\S+\s*\.?\s*[)\]]?\s*:', item.text, re.U
+        )
         if prev_is_t and is_t and not marked:
             item.text = item.text.lstrip()
             merge_items(new_items[-1], item)
@@ -257,7 +259,8 @@ citation_re = re.compile(
     r'|'
     r'\((?P<inner2>([^)]*(\([^)]*\))?)[0-9]*([^)]*(\([^)]*\))?))\)'
     ')'
-    r'\s*$'
+    r'\s*$',
+    re.U
 )
 
 def remove_citations(items):
@@ -277,7 +280,8 @@ def remove_citations(items):
             if other and (other.text or '')[start:end].strip() != '':
                 return False
         elif re.match(r'\s*[{}].*[{}]\s*$'.format(OPENQUOTES, CLOSEQUOTES),
-                      m.group('inner1') or m.group('inner2')):
+                      m.group('inner1') or m.group('inner2'),
+                      re.U):
             return False
         return True
 
@@ -318,14 +322,17 @@ def remove_language_name(items, igt):
         lgtoks.extend(lgcode.split(':'))  # split up complex codes
     if lgname and '?' not in lgname:
         lgtoks.append(lgname)
-        if re.search('[- ]', lgname):  # abbreviation for multiword names
-            lgtoks.append(''.join(ln[0] for ln in re.split(r'[- ]+', lgname)))
-        if re.search(r'^\w{3}', lgname):
+        if re.search('[- ]', lgname, re.U):  # abbreviation for multiword names
+            lgtoks.append(''.join(ln[0]
+                          for ln in re.split(r'[- ]+', lgname, re.U)))
+        if re.search(r'^\w{3}', lgname, re.U):
             lgtoks.append(lgname[:3])
     if lgtoks:
         sig = '|'.join(re.escape(t) for t in lgtoks)
-        start_lg_re = re.compile(r'^\s*[(\[]?({})[)\]]?'.format(sig), re.I)
-        end_lg_re = re.compile(r'[(\[]?({})[)\]]?\s*$'.format(sig), re.I)
+        start_lg_re = re.compile(r'^\s*[(\[]?({})[)\]]?'
+                                 .format(sig), re.I|re.U)
+        end_lg_re = re.compile(r'[(\[]?({})[)\]]?\s*$'
+                               .format(sig), re.I|re.U)
         for item in items:
             tags = get_tags(item)
             if tags[0] == 'M':
@@ -367,7 +374,7 @@ ex_num_re = re.compile(
     r'(?(paren)\s*[)\]])'
     ')'  # end exnum
     r'\s',
-    re.I
+    re.I|re.U
 )
 
 
@@ -410,7 +417,7 @@ def rejoin_hyphenated_grams(item):
     text = item.text
     toks = []
     pos = 0
-    for match in list(re.finditer(r'(\S*(?:\s*[-=.]\s*\S*)+)', text)):
+    for match in list(re.finditer(r'(\S*(?:\s*[-=.]\s*\S*)+)', text, re.U)):
         start, end = match.span()
         toks.append(text[pos:start])
         toks.append(text[start:end].replace(' ', ''))
@@ -425,10 +432,10 @@ def extract_judgment(item):
     tags = get_tags(item)
     if tags[0] == 'M' or 'CR' in tags:
         return
-    match = re.match(r'^\s*([*?#]+)[^/]+$', item.text)
+    match = re.match(r'^\s*([*?#]+)[^/]+$', item.text, re.U)
     if match:
         item.attributes['judgment'] = match.group(1)
-    item.text = re.sub(r'^(\s*)[*?#]+\s*', r'\1', item.text)
+    item.text = re.sub(r'^(\s*)[*?#]+\s*', r'\1', item.text, re.U)
 
 
 lit_trans_re = re.compile(
@@ -451,14 +458,14 @@ lit_trans_re = re.compile(
     ')'  # end sec
     r'\s*$'
     .format(openquotes=OPENQUOTES, closequotes=CLOSEQUOTES),
-    re.I
+    re.I|re.U
 )
 alt_trans_re = re.compile(
     r'(?P<pri>.*[.?!{closequotes}])'
     r'\s*/\s*(?P<lit1>lit(?:eral(?:ly)?)?\s*[,.:]*)?\s*'
     r'(?P<s1>.*)'
     .format(closequotes=CLOSEQUOTES),
-    re.I
+    re.I|re.U
 )
 
 
@@ -565,8 +572,12 @@ def unquote_translations(items):
     for item in items:
         tags = get_tags(item)
         if tags[0] == 'T':
-            item.text = re.sub(r'^\s*[{}]'.format(OPENQUOTES), '', item.text)
-            item.text = re.sub(r'[{}]\s*$'.format(CLOSEQUOTES), '', item.text)
+            item.text = re.sub(
+                r'^\s*[{}]'.format(OPENQUOTES), '', item.text, re.U
+            )
+            item.text = re.sub(
+                r'[{}]\s*$'.format(CLOSEQUOTES), '', item.text, re.U
+            )
     return items
 
 
@@ -577,7 +588,7 @@ def shift_left(items):
     for item in items:
         tags = get_tags(item)
         if tags[0] in shiftable_tags:
-            indents.append(len(re.match(r'^\s*', item.text).group(0)))
+            indents.append(len(re.match(r'^\s*', item.text, re.U).group(0)))
     if indents:
         maxshift = min(indents)
         for item in items:
