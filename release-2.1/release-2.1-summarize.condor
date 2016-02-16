@@ -1,0 +1,13 @@
+Executable = release-2.1.sh
+Universe   = vanilla
+getenv     = true
+environment = "LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8"
+transfer_executable = false
+request_memory = 8*1024
+
+arguments  = lang-summary doc-summary
+output     = release-2.1.out
+error      = release-2.1.err
+Log        = release-2.1.log
+Queue
+

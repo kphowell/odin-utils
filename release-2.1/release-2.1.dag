@@ -1,0 +1,44 @@
+# The 2.1 release has 2026 source files
+# Each job (before language splitting and summarization) has 3 steps:
+#   1: prepare txt files
+#   2: convert to Xigt
+#   3: enrich
+
+JOB A release-2.1-create.condor
+JOB B release-2.1-create.condor
+JOB C release-2.1-create.condor
+JOB D release-2.1-create.condor
+JOB E release-2.1-create.condor
+JOB F release-2.1-create.condor
+JOB G release-2.1-create.condor
+JOB H release-2.1-create.condor
+JOB I release-2.1-create.condor
+JOB J release-2.1-create.condor
+JOB SPLIT release-2.1-split.condor
+JOB POST release-2.1-summarize.condor
+
+# split up data; roughly 200 docs each
+# VARS A start="0"
+VARS A end="199"
+VARS B start="200"
+VARS B end="399"
+VARS C start="400"
+VARS C end="599"
+VARS D start="600"
+VARS D end="799"
+VARS E start="800"
+VARS E end="999"
+VARS F start="1000"
+VARS F end="1199"
+VARS G start="1200"
+VARS G end="1399"
+VARS H start="1400"
+VARS H end="1599"
+VARS I start="1600"
+VARS I end="1799"
+VARS J start="1800"
+# VARS J end="2026"
+
+PARENT A B C D E F G H I J CHILD SPLIT
+PARENT SPLIT CHILD POST
+

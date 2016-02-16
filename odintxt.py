@@ -235,7 +235,8 @@ def format_odin_igt(igt):
 
 
 def run(args):
-    os.mkdir(args.outdir)  # raises OSError, e.g., if dir exists
+    if not os.path.exists(args.outdir):
+        os.mkdir(args.outdir)  # raises OSError, e.g., if dir exists
     writer = _BufferedIGTWriter(args.outdir)
     # either go through all files or just read from stdin
     if args.infiles:
