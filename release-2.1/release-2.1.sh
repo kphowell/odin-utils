@@ -276,4 +276,5 @@ FINALMSG
 [ ${CMD[compress]} ] && compress
 [ ${CMD[epilogue]} ] && epilogue
 
+exit 0  # if nothing follows the test above and it fails, the script returns 1
 

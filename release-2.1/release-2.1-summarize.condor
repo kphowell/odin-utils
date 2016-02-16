@@ -5,9 +5,9 @@ environment = "LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8"
 transfer_executable = false
 request_memory = 8*1024
 
-arguments  = lang-summary doc-summary
-output     = release-2.1.out
-error      = release-2.1.err
-Log        = release-2.1.log
+arguments  = lang-summary doc-summary compress
+output     = release-2.1-summarize.out
+error      = release-2.1-summarize.err
+Log        = release-2.1-summarize.log
 Queue
 
