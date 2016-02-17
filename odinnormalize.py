@@ -14,6 +14,14 @@ except ImportError:
 from xigt.codecs import xigtxml
 from xigt import Item, Tier, xigtpath as xp
 
+from odinxigt import (
+    copy_items,
+    get_tags,
+    remove_blank_items,
+    min_indent,
+    shift_left
+)
+
 
 BLANK_TAG = 'B'
 LANG_CODE_PATH = 'metadata//dc:subject/@olac:code'
@@ -53,10 +61,11 @@ QUOTES = (
 )
 # note: adding grave accent (`) and comma (,) as they've been observed
 #       serving as quotes
+# edit: commented out (grave sometimes closes, frequently opens)
 QUOTEPAIRS = {
     '\u0022': ['\u0022'],  # quotation mark (")
     '\u0027': ['\u0027'],  # apostrophe (')
-    '\u002c': ['\u0027', '\u0060'],  # comma/(apostrophe|grave-accent)
+    #'\u002c': ['\u0027', '\u0060'],  # comma/(apostrophe|grave-accent)
     '\u0060': ['\u0027'],  # grave-accent/apostrophe
     '\u00ab': ['\u00bb'],  # left/right-pointing double-angle quotation mark
     '\u00bb': ['\u00ab', '\u00bb'],  # right/(left|right)-pointing double-angle quotation mark
@@ -163,28 +172,9 @@ def normalize_items(base_tier, norm_id):
 
     return items
 
-
-def copy_items(items):
-    return [
-        Item(id=item.id, type=item.type,
-             attributes=item.attributes, text=item.text)
-        for item in items
-    ]
-
-
-def get_tags(item):
-    return item.attributes.get('tag', '').split('+')
-
 def whitespace(m):
     start, end = m.span()
     return ' ' * (end - start)
-
-def remove_blank_items(items):
-    return [
-        i for i in items
-        if (i.text or '').strip() != ''
-    ]
-
 
 def merge_items(*items):
     alignment = ','.join(i.alignment for i in items if i.alignment)
@@ -237,23 +227,26 @@ def rejoin_translations(items):
     # speaker indicator, quote, or other
     new_items = []
     prev_is_t = False
+    prev_end = False
     for item in items:
         tags = get_tags(item)
         is_t = tags[0] == 'T' and 'DB' not in tags and 'CR' not in tags
         marked = re.match(
             r'^\s*[(\[]?\s*\S+\s*\.?\s*[)\]]?\s*:', item.text, re.U
         )
-        if prev_is_t and is_t and not marked:
+        if prev_is_t and is_t and not marked and not prev_end:
             item.text = item.text.lstrip()
             merge_items(new_items[-1], item)
         else:
             new_items.append(item)
             prev_is_t = is_t
+        end_match = re.search(r'[{}] *\)* *$'.format(CLOSEQUOTES), item.text)
+        prev_end = end_match is not None
     return new_items
 
 
 citation_re = re.compile(
-    r'=?'
+    r'(\s{3}( [-a-zA-Z]+){1,4} ?|=?)'
     '('
     r'\[(?P<inner1>([^\]]*(\([^\)]*\))?)[0-9]*([^\]]*(\([^)]*\))?))\]'
     r'|'
@@ -285,7 +278,9 @@ def remove_citations(items):
             return False
         return True
 
+    new_items = []
     for i, item in enumerate(items):
+        new_items.append(item)  # add now; text might be modified later
         tags = get_tags(item)
         if tags[0] not in ('L', 'G', 'T', 'L-G', 'L-T', 'L-G-T'):
             continue
@@ -308,8 +303,8 @@ def remove_citations(items):
             # what about other tags? LN, CN, EX
             item.attributes['tag'] = '+'.join(tags)
             meta_item.attributes['tag'] = '+'.join(m_tags)
-            items.append(meta_item)
-    return items
+            new_items.append(meta_item)
+    return new_items
 
 
 def remove_language_name(items, igt):
@@ -318,10 +313,13 @@ def remove_language_name(items, igt):
     lgname = xp.find(igt, LANG_NAME_PATH)
     lgtoks = []
     if lgcode and '?' not in lgcode and '*' not in lgcode:
-        lgtoks.append(lgcode)
-        lgtoks.extend(lgcode.split(':'))  # split up complex codes
+        codes = set(lgcode.split(':'))  # split up complex codes
+        codes.update(map(str.upper, list(codes)))
+        codes.update(map(str.lower, list(codes)))
+        lgtoks.extend(codes)
     if lgname and '?' not in lgname:
         lgtoks.append(lgname)
+        lgtoks.append(lgname.upper())
         if re.search('[- ]', lgname, re.U):  # abbreviation for multiword names
             lgtoks.append(''.join(ln[0]
                           for ln in re.split(r'[- ]+', lgname, re.U)))
@@ -330,14 +328,13 @@ def remove_language_name(items, igt):
     if lgtoks:
         sig = '|'.join(re.escape(t) for t in lgtoks)
         start_lg_re = re.compile(r'^\s*[(\[]?({})[)\]]?'
-                                 .format(sig), re.I|re.U)
+                                 .format(sig), re.U)
         end_lg_re = re.compile(r'[(\[]?({})[)\]]?\s*$'
-                               .format(sig), re.I|re.U)
+                               .format(sig), re.U)
         for item in items:
+            new_items.append(item)  # add now; might be modified later
             tags = get_tags(item)
-            if tags[0] == 'M':
-                new_items.append(item)
-            else:
+            if tags[0] != 'M':
                 orig = item.text
                 m = start_lg_re.match(item.text)
                 if m:
@@ -357,8 +354,7 @@ def remove_language_name(items, igt):
                     item.text = end_lg_re.sub(whitespace, item.text).rstrip()
                 if 'LN' in tags and item.text != orig:
                     tags.remove('LN')
-                item.attributes['tag'] = '+'.join(tags)
-                new_items.append(item)
+                    item.attributes['tag'] = '+'.join(tags)
     else:
         new_items = items
     return new_items
@@ -414,16 +410,24 @@ def remove_example_numbers(items):
 def rejoin_hyphenated_grams(item):
     # there may be morphemes separated by hyphens, but with intervening
     # spaces; slide the token over (e.g. "dog-  NOM" => "dog-NOM  ")
-    text = item.text
-    toks = []
-    pos = 0
-    for match in list(re.finditer(r'(\S*(?:\s*[-=.]\s*\S*)+)', text, re.U)):
-        start, end = match.span()
-        toks.append(text[pos:start])
-        toks.append(text[start:end].replace(' ', ''))
-        pos = end
-    toks.append(text[pos:len(text)])
-    item.text = ''.join(toks).rstrip()
+    tags = get_tags(item)
+    delims = {
+        'L': '-=',
+        'L-G': '-=',
+        'G': '-=.'
+    }
+    if tags[0] in delims:
+        pattern = r'(\S*(?:\s*[{}]\s*\S*)+)'.format(delims[tags[0]])
+        text = item.text
+        toks = []
+        pos = 0
+        for match in list(re.finditer(pattern, text, re.U)):
+            start, end = match.span()
+            toks.append(text[pos:start])
+            toks.append(text[start:end].replace(' ', ''))
+            pos = end
+        toks.append(text[pos:len(text)])
+        item.text = ''.join(toks).rstrip()
 
 # judgment extraction adapted from code from Ryan Georgi (PC)
 # don't attempt for still-corrupted lines or those with alternations
@@ -438,36 +442,32 @@ def extract_judgment(item):
     item.text = re.sub(r'^(\s*)[*?#]+\s*', r'\1', item.text, re.U)
 
 
-lit_trans_re = re.compile(
-    r'\s*(?P<pri>.*?)\s*'
-    '(?P<sec>'
-    # no parens, must have "lit:"
-    r'(?P<lit1>lit(?:eral(?:ly)?)?\s*[,.:]+)\s*'
-    r'[{openquotes}](?P<s1>.*)[{closequotes}]'
-    r'|'  # parens only around "lit" (open quotes on either side)
-    r'[{openquotes}]?'
-    r'\((?P<lit2>lit(?:eral(?:ly)?)?\s*[,.:]*)\)\s*'
-    r'[{openquotes}]?\s*(?P<s2>.*)[{closequotes}]'
-    r'|'  # with parens, "lit" optional
-    r'[(\[]\s*'
-    r'(?P<lit3>lit(?:eral(?:ly)?)?\s*[,.:]*)?\s*'
-    r'[{openquotes}](?P<s3>.*)[{closequotes}]\s*'
-    r'[)\]]'
-    r'\s*(?P<pri_close>[closequotes])?'
-    #r'(P<rest>.*)$'  # this breaks things?
-    ')'  # end sec
-    r'\s*$'
-    .format(openquotes=OPENQUOTES, closequotes=CLOSEQUOTES),
-    re.I|re.U
-)
-alt_trans_re = re.compile(
-    r'(?P<pri>.*[.?!{closequotes}])'
-    r'\s*/\s*(?P<lit1>lit(?:eral(?:ly)?)?\s*[,.:]*)?\s*'
-    r'(?P<s1>.*)'
-    .format(closequotes=CLOSEQUOTES),
+# BEWARE: regex magic below
+#  (?P<name>...) makes a named group
+#  (?P(name)abc|xyz) is conditional; if name matched, do abc, else xyz
+
+basic_quoted_trans_re = re.compile(
+    r'((?P<cm>,)|(?P<oq>[{oq}]))'  # if starting quote is , end might be `
+    r'(s\' \w|\'\w|," |[^{cq}{oq}])+'  # string content
+    r'((?(oq)([{cq}]|[^{oq}]*|\s*$)|(?(cm)[{cq}`]|[^{oq}]*)))'  # end
+    .format(oq=OPENQUOTES, cq=CLOSEQUOTES),
     re.I|re.U
 )
 
+pre_trans_re = re.compile(
+    '(?P<s>'  # s comes before t
+    r'\s*,?(?P<open>[(\[])?\s*'
+    r'(?P<pre>(?: *[^{oq} (:,]*){{1,3}})(?P<delim>[:=])?\s*'
+    ')'  # end s group
+    '(?P<t>'
+    r'((?P<cm>,)|(?P<oq>[{oq}]))'
+    r'(s\' \w|\'\w|," |[^{cq}{oq}])+'
+    r'((?(oq)([{cq}]|[^{oq}]*|\s*$)|(?(cm)[{cq}`]|[^{oq}]*)))'
+    r'|(?(delim)(?(open)[^)\]]+|[^(\[]+))'  # unquoted translation?
+    ')'  # end t group
+    .format(oq=OPENQUOTES, cq=CLOSEQUOTES),
+    re.I|re.U
+)
 
 def separate_secondary_translations(items):
     # sometimes translation lines with secondary translations are marked
@@ -477,39 +477,43 @@ def separate_secondary_translations(items):
         if tags[0] in ('L', 'G', 'L-G') and 'DB' in tags[1:]:
             # don't attempt
             return items
-    # find non-double secondary translations and split if necessary, then
-    # normalize the tags
+    indent = min_indent(items, tags=('L','G','L-G','L-G-T','G-T'))
+
     new_items = []
     for item in items:
         tags = get_tags(item)
-        if tags[0] == 'T' and 'CR' not in tags[1:]:
-            m = lit_trans_re.match(item.text)
-            if not m and item.text.count('/') == 1:
-                m = alt_trans_re.search(item.text)
-            if m:
-                get = lambda k: m.groupdict().get(k) or ''
-                pri = get('pri') + get('pri_close')
-                sec = get('s1') or get('s2') or get('s3') or ''
-                if pri:
-                    item.text = pri
-                    pritags = [t for t in tags if t not in ('LT', 'AL')]
-                    item.attributes['tag'] = '+'.join(pritags)
-                    new_items.append(item)
-                sec_item = Item(
-                    id=item.id,
-                    attributes=item.attributes,
-                    text=sec
-                )
-                is_lit = bool(get('lit1') or get('lit2') or get('lit3'))
-                sec_tags = tags
-                if is_lit and 'LT' not in sec_tags:
-                    sec_tags.append('LT')
-                elif 'AL' not in sec_tags:
-                    sec_tags.append('AL')
-                sec_item.attributes['tag'] = '+'.join(sec_tags)
-                new_items.append(sec_item)
-            else:
-                new_items.append(item)
+        text = item.text
+        matches = [m for m in pre_trans_re.finditer(text)
+                   if m.group('pre').strip() or m.group('t').strip()]
+        if (tags[0] == 'T' and 'CR' not in tags[1:]
+            and (':' in text or basic_quoted_trans_re.search(text))
+            and matches):
+            # regrouping may be necessary for an over-eager regex
+            parts = []
+            for match in matches:
+                pre = match.group('pre').strip()
+                t = match.group('t').strip()
+                if parts and pre and not t:
+                    parts[-1]['t'] = parts[-1]['t'] + match.group('s')
+                else:
+                    parts.append({'pre': pre, 't': t})
+            if len(parts) > 1:
+                tags = [t for t in tags if t not in ('AL', 'LT', 'DB')]
+            for i, part in enumerate(parts):
+                new_tags = list(tags)
+                if re.search(r'lit(?:eral(?:ly)?)?', part['pre']):
+                    if 'LT' not in new_tags: new_tags.append('LT')
+                elif re.search(r'(or|also|ii+|\b[bcd]\.)[ :,]', part['pre']):
+                    if 'AL' not in new_tags: new_tags.append('AL')
+                attrs = dict(item.attributes)
+                if part['pre']:
+                    attrs['note'] = part['pre']
+                attrs['tag'] = '+'.join(new_tags)
+                new_items.append(Item(
+                    id=item.id + '_{}'.format(i),
+                    attributes=attrs,
+                    text=part['t']
+                ))
         else:
             new_items.append(item)
     return new_items
@@ -573,30 +577,12 @@ def unquote_translations(items):
         tags = get_tags(item)
         if tags[0] == 'T':
             item.text = re.sub(
-                r'^\s*[{}]'.format(OPENQUOTES), '', item.text, re.U
+                r'^(\s*)[{}]'.format(OPENQUOTES), r'\1', item.text, re.U
             )
             item.text = re.sub(
                 r'[{}]\s*$'.format(CLOSEQUOTES), '', item.text, re.U
             )
-    return items
 
-
-def shift_left(items):
-    # don't shift left T lines; they get done separately.
-    shiftable_tags = ('L', 'G', 'L-G', 'G-T', 'L-T', 'L-G-T')
-    indents = []
-    for item in items:
-        tags = get_tags(item)
-        if tags[0] in shiftable_tags:
-            indents.append(len(re.match(r'^\s*', item.text, re.U).group(0)))
-    if indents:
-        maxshift = min(indents)
-        for item in items:
-            tags = get_tags(item)
-            if tags[0] in shiftable_tags:
-                item.text = item.text[maxshift:]
-            elif tags[0] == 'M':
-                item.text = item.text.strip()
     return items
 
 

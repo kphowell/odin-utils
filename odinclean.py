@@ -8,7 +8,9 @@ import logging
 from collections import OrderedDict
 
 from xigt.codecs import xigtxml
-from xigt import Item, Tier
+from xigt import Tier
+
+from odinxigt import (copy_items, get_tags, remove_blank_items, shift_left)
 
 
 def clean_corpus(xc):
@@ -65,25 +67,14 @@ def clean_items(raw_tier, clean_id):
     # then execute the cleaning steps
     #cln_items = merge_diacritics(cln_items)
     cln_items = merge_lines(cln_items)
+    cln_items = remove_blank_items(cln_items)
+    cln_items = shift_left(cln_items)
 
     for i, item in enumerate(cln_items):
         item.alignment = item.id  # do this first so it aligns to raw ID
         item.id = '{}{}'.format(clean_id, i + 1)  # now change id
 
     return cln_items
-
-
-def copy_items(items):
-    return [
-        Item(id=item.id, type=item.type, alignment=item.alignment,
-             content=item.content, segmentation=item.segmentation,
-             attributes=item.attributes, text=item.text)
-        for item in items
-    ]
-
-
-def get_tags(item):
-    return item.attributes.get('tag', '').split('+')
 
 
 def merge_diacritics(items):
