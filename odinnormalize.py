@@ -505,12 +505,16 @@ def separate_secondary_translations(items):
                     parts.append({'pre': pre, 't': t})
             if len(parts) > 1:
                 tags = [t for t in tags if t not in ('AL', 'LT', 'DB')]
+            bare_T_seen = False
             for i, part in enumerate(parts):
                 new_tags = list(tags)
                 if re.search(r'lit(?:eral(?:ly)?)?', part['pre']):
                     if 'LT' not in new_tags: new_tags.append('LT')
-                elif re.search(r'(or|also|ii+|\b[bcd]\.)[ :,]', part['pre']):
+                elif (re.search(r'(or|also|ii+|\b[bcd]\.)[ :,]', part['pre'])
+                      or bare_T_seen):
                     if 'AL' not in new_tags: new_tags.append('AL')
+                else:
+                    bare_T_seen = True
                 attrs = dict(item.attributes)
                 if part['pre']:
                     attrs['note'] = part['pre']
