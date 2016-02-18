@@ -161,11 +161,17 @@ def normalize_items(base_tier, norm_id):
         item.alignment = item.id
         rejoin_hyphenated_grams(item)
         extract_judgment(item)
+        # any remaining tag=B items should be changed to tag=M
+        # (because they aren't blank)
+        tags = get_tags(item)
+        if tags[0] == 'B':
+            tags = ['M'] + tags[1:]
+            item.attributes['tag'] = '+'.join(tags)
 
     items = separate_secondary_translations(items)
     items = dewrap_lines(items)
     items = unquote_translations(items)
-    items = shift_left(items)
+    items = shift_left(items, tags=('L','G','L-G','L-T','G-T','L-G-T'))
 
     for i, item in enumerate(items):
         item.id = '{}{}'.format(norm_id, i + 1)
@@ -457,7 +463,7 @@ basic_quoted_trans_re = re.compile(
 pre_trans_re = re.compile(
     '(?P<s>'  # s comes before t
     r'\s*,?(?P<open>[(\[])?\s*'
-    r'(?P<pre>(?: *[^{oq} (:,]*){{1,3}})(?P<delim>[:=])?\s*'
+    r'(?P<pre>(?: *[^{oq} (:,]*){{1,3}})(?P<delim>[:=.])?\s*'
     ')'  # end s group
     '(?P<t>'
     r'((?P<cm>,)|(?P<oq>[{oq}]))'
@@ -577,7 +583,7 @@ def unquote_translations(items):
         tags = get_tags(item)
         if tags[0] == 'T':
             item.text = re.sub(
-                r'^(\s*)[{}]'.format(OPENQUOTES), r'\1', item.text, re.U
+                r'^\s*[{}]?'.format(OPENQUOTES), '', item.text, re.U
             )
             item.text = re.sub(
                 r'[{}]\s*$'.format(CLOSEQUOTES), '', item.text, re.U
