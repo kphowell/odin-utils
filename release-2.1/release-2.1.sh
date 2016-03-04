@@ -167,7 +167,14 @@ enrich-xigt() {
     for f in `get-files "$BYDOCID/xigt" xml`; do
         fn="$BYDOCID/xigt-enriched/`basename $f`"
         echo -n "  `basename $fn` :enrich"
-        $INTENT enrich --align heur --pos class --parse trans,proj "$f" "$fn"
+        $INTENT enrich \
+            --align heur \
+            --pos class \
+            --parse trans,proj \
+            "$f" "$fn"
+            # leaving off the following option because of a bug:
+            # https://github.com/rgeorgi/intent/issues/1
+            #--max-parse-length=25 \
         echo " :sort"
         $XIGT sort \
             $DBG \

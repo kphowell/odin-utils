@@ -21,7 +21,7 @@ XIGTHOME=/NLP_TOOLS/uwcl/xigt/xigt-1.1.0/
 # Xigt command
 XIGT="$XIGTHOME/xigt.sh"
 # INTENT command
-INTENT=/NLP_TOOLS/uwcl/intent/0.6/intent.py
+INTENT=/NLP_TOOLS/uwcl/intent/0.6.1/intent.py
 
 # XigtPath for language code (relative to IGT)
 LANGPATH='metadata//dc:subject/@olac:code'

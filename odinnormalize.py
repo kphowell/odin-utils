@@ -447,30 +447,19 @@ def extract_judgment(item):
         item.attributes['judgment'] = match.group(1)
     item.text = re.sub(r'^(\s*)[*?#]+\s*', r'\1', item.text, re.U)
 
-
 # BEWARE: regex magic below
 #  (?P<name>...) makes a named group
 #  (?P(name)abc|xyz) is conditional; if name matched, do abc, else xyz
 
 basic_quoted_trans_re = re.compile(
-    r'((?P<cm>,)|(?P<oq>[{oq}]))'  # if starting quote is , end might be `
-    r'(s\' \w|\'\w|," |[^{cq}{oq}])+'  # string content
-    r'((?(oq)([{cq}]|[^{oq}]*|\s*$)|(?(cm)[{cq}`]|[^{oq}]*)))'  # end
-    .format(oq=OPENQUOTES, cq=CLOSEQUOTES),
-    re.I|re.U
-)
-
-pre_trans_re = re.compile(
-    '(?P<s>'  # s comes before t
-    r'\s*,?(?P<open>[(\[])?\s*'
-    r'(?P<pre>(?: *[^{oq} (:,]*){{1,3}})(?P<delim>[:=.])?\s*'
-    ')'  # end s group
+    r'(^|[[ (])'
     '(?P<t>'
-    r'((?P<cm>,)|(?P<oq>[{oq}]))'
-    r'(s\' \w|\'\w|," |[^{cq}{oq}])+'
-    r'((?(oq)([{cq}]|[^{oq}]*|\s*$)|(?(cm)[{cq}`]|[^{oq}]*)))'
-    r'|(?(delim)(?(open)[^)\]]+|[^(\[]+))'  # unquoted translation?
+    r'(?P<judg>[*?#]+)?'
+    r'((?P<cm>,,?)|(?P<oq>[{oq}]))'  # if starting quote is , end might be `
+    r'(s\' \w|\'\w|{oq}\w|[\w,]{cq},? \w+ \w+|[^{cq}{oq}])+'  # string content
+    r'((?(oq)([{cq}]|[^{oq}]*|\s*$)|(?(cm)[{cq}`]|[^{oq}]*)))'  # end
     ')'  # end t group
+    r'($|[ )\]])'
     .format(oq=OPENQUOTES, cq=CLOSEQUOTES),
     re.I|re.U
 )
@@ -489,44 +478,127 @@ def separate_secondary_translations(items):
     for item in items:
         tags = get_tags(item)
         text = item.text
-        matches = [m for m in pre_trans_re.finditer(text)
-                   if m.group('pre').strip() or m.group('t').strip()]
-        if (tags[0] == 'T' and 'CR' not in tags[1:]
-            and (':' in text or basic_quoted_trans_re.search(text))
-            and matches):
-            # regrouping may be necessary for an over-eager regex
-            parts = []
-            for match in matches:
-                pre = match.group('pre').strip()
-                t = match.group('t').strip()
-                if parts and pre and not t:
-                    parts[-1]['t'] = parts[-1]['t'] + match.group('s')
-                else:
-                    parts.append({'pre': pre, 't': t})
-            if len(parts) > 1:
-                tags = [t for t in tags if t not in ('AL', 'LT', 'DB')]
-            bare_T_seen = False
-            for i, part in enumerate(parts):
-                new_tags = list(tags)
-                if re.search(r'lit(?:eral(?:ly)?)?', part['pre']):
-                    if 'LT' not in new_tags: new_tags.append('LT')
-                elif (re.search(r'(or|also|ii+|\b[bcd]\.)[ :,]', part['pre'])
-                      or bare_T_seen):
-                    if 'AL' not in new_tags: new_tags.append('AL')
-                else:
-                    bare_T_seen = True
-                attrs = dict(item.attributes)
-                if part['pre']:
-                    attrs['note'] = part['pre']
-                attrs['tag'] = '+'.join(new_tags)
-                new_items.append(Item(
-                    id=item.id + '_{}'.format(i),
-                    attributes=attrs,
-                    text=part['t']
-                ))
+        if (tags[0] == 'T' and 'CR' not in tags[1:]):
+            text = re.sub(
+                r'([{cq}])\s*(\s|/)\s*([{oq}])'
+                .format(oq=OPENQUOTES,cq=CLOSEQUOTES),
+                r'\1 \2 \3', text, re.I|re.U
+            )
+            matches = [m for m in basic_quoted_trans_re.finditer(text)
+                       if m.group('t').strip()]
+            sub_items = []
+            if matches:
+                pos = 0
+                bare_T_seen = False
+                last_i = len(matches) - 1
+                for i, match in enumerate(matches):
+                    start, end = match.start(), match.end()
+                    t = match.group('t')
+                    if i == last_i and re.search(r'\w|\d', text[end:], re.U):
+                        t += text[match.end():]
+                    pre = text[pos:match.start()]
+                    # some instances have bad matches... try to avoid with
+                    # a hard limit of 30 chars for the note or note is 2x
+                    # size of t
+                    prelen = len(pre.strip())
+                    if prelen > 30 or prelen >= (2*len(t.strip())):
+                        sub_items = []
+                        new_items.append(item)
+                        break
+                    new_tags = list(tags)
+                    if re.search(r'lit(?:eral(?:ly)?)?', pre):
+                        if 'LT' not in new_tags: new_tags.append('LT')
+                    elif (re.search(r'(or|also|ii+|\b[bcd]\.)[ :,]', pre)
+                          or bare_T_seen):
+                        if 'AL' not in new_tags: new_tags.append('AL')
+                    else:
+                        bare_T_seen = True
+                    attrs = dict(item.attributes)
+                    if match.group('judg'):
+                        attrs['judgment'] = match.group('judg')
+                    if re.search(r'\w|\d', pre, re.U):
+                        attrs['note'] = pre.strip()
+                    attrs['tag'] = '+'.join(new_tags)
+                    sub_items.append(Item(
+                        id=item.id + '_{}'.format(i+1),
+                        attributes=attrs,
+                        text=t
+                    ))
+                    pos = end
+                new_items.extend(sub_items)
+            else:
+                new_items.append(item)
         else:
             new_items.append(item)
     return new_items
+
+# pre_trans_re = re.compile(
+#     '(?P<s>'  # s comes before t
+#     r'\s*(?P<open>[(\[])?\s*'
+#     r'(?P<pre>(?: *(?:\w\'\w|[^{oq} (:,])*){{1,3}})(?P<delim>[:=.])?\s*?'
+#     ')'  # end s group
+#     '(?P<t>'
+#     r'((?P<cm>(?:^| ),)|(?P<oq>[{oq}]))'
+#     r'(s\' \w|\'\w|," |[^{cq}{oq}])+'
+#     r'((?(oq)([{cq}]|[^{oq}]*|\s*$)|(?(cm)[{cq}`]|[^{oq}]*)))'
+#     r'|(?(delim)(?(open)[^)\]]+|[^(\[]+))'  # unquoted translation?
+#     ')'  # end t group
+#     .format(oq=OPENQUOTES, cq=CLOSEQUOTES),
+#     re.I|re.U
+# )
+
+# def separate_secondary_translations(items):
+#     # sometimes translation lines with secondary translations are marked
+#     # as +DB even if they are for the same, single IGT
+#     for item in items:
+#         tags = get_tags(item)
+#         if tags[0] in ('L', 'G', 'L-G') and 'DB' in tags[1:]:
+#             # don't attempt
+#             return items
+#     indent = min_indent(items, tags=('L','G','L-G','L-G-T','G-T'))
+# 
+#     new_items = []
+#     for item in items:
+#         tags = get_tags(item)
+#         text = item.text
+#         matches = [m for m in pre_trans_re.finditer(text)
+#                    if m.group('pre').strip() or m.group('t').strip()]
+#         if (tags[0] == 'T' and 'CR' not in tags[1:]
+#             and (':' in text or basic_quoted_trans_re.search(text))
+#             and matches):
+#             # regrouping may be necessary for an over-eager regex
+#             parts = []
+#             for match in matches:
+#                 pre = match.group('pre').strip()
+#                 t = match.group('t').strip()
+#                 if parts and pre and not t:
+#                     parts[-1]['t'] = parts[-1]['t'] + match.group('s')
+#                 else:
+#                     parts.append({'pre': pre, 't': t})
+#             if len(parts) > 1:
+#                 tags = [t for t in tags if t not in ('AL', 'LT', 'DB')]
+#             bare_T_seen = False
+#             for i, part in enumerate(parts):
+#                 new_tags = list(tags)
+#                 if re.search(r'lit(?:eral(?:ly)?)?', part['pre']):
+#                     if 'LT' not in new_tags: new_tags.append('LT')
+#                 elif (re.search(r'(or|also|ii+|\b[bcd]\.)[ :,]', part['pre'])
+#                       or bare_T_seen):
+#                     if 'AL' not in new_tags: new_tags.append('AL')
+#                 else:
+#                     bare_T_seen = True
+#                 attrs = dict(item.attributes)
+#                 if part['pre']:
+#                     attrs['note'] = part['pre']
+#                 attrs['tag'] = '+'.join(new_tags)
+#                 new_items.append(Item(
+#                     id=item.id + '_{}'.format(i),
+#                     attributes=attrs,
+#                     text=part['t']
+#                 ))
+#         else:
+#             new_items.append(item)
+#     return new_items
 
 
 def dewrap_lines(items):
