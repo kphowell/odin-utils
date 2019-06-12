@@ -1,0 +1,755 @@
+gram_lexicon_id	type_id	gram	domain	identifier	descrip	lang_code
+1	0	ACC	case	ACC	AccusativeCase	
+2	0	NOM	case	NOM	NominativeCase	
+3	0	DAT	case	DAT	DativeCase	
+4	0	LOC	case	LOC	SpatialCase	
+5	0	GEN	case	GEN	GenitiveCase	
+6	0	ERG	case	ERG	ErgativeCase	
+7	0	ABS	case	ABS	AbsolutiveCase	
+8	0	SG	number	SG	Singular	
+9	0	SING	number	SING	Singular	
+10	0	PL	number	PL	Plural	
+11	0	DUAL	number	DUAL	Dual	
+12	0	M	gender	M	Masculine	
+13	0	MASC	gender	MASC	Masculine	
+14	0	F	gender	F	Feminine	
+15	0	FEM	gender	FEM	Feminine	
+16	-1	NOM	pos	NOM	Nominalizer	DUU
+17	0	PAST	tense	PAST	PastTense	
+18	0	PST	tense	PST	PastTense	
+19	0	FUT	tense	FUT	FutureTense	
+20	0	PRES	tense	PRES	PresentTense	
+21	0	1SG	number	SG	Singular	
+22	0	1PL	number	PL	Plural	
+23	0	2SG	number	SG	Singular	
+24	0	2PL	number	PL	Plural	
+25	0	3SG	number	SG	Singular	
+26	0	3PL	number	PL	Plural	
+27	0	1SG	person	1	FirstPerson	
+28	0	1PL	person	1	FirstPerson	
+29	0	2SG	person	2	SecondPerson	
+30	0	2PL	person	2	SecondPerson	
+31	0	3SG	person	3	ThirdPerson	
+32	0	3PL	person	3	ThirdPerson	
+33	-1	CAUS	voice	CAUS	CausativeVoice	XXX
+34	-1	PASSIVE	voice	PASSIVE	PassiveVoice	XXX
+35	-1	REFL	voice	REFL	Reflexive	XXX
+36	-1	APPL	voice	APPL	ApplicativeVoice	XXX
+37	-1	EMPH	voice	EMPH	EmphaticVoice	XXX
+38	0	PERF	aspect	PERF	PerfectiveAspect	
+39	0	PFV	aspect	PFV	PerfectiveAspect	
+40	0	IMPF	aspect	IMPF	ImperfectiveAspect	
+41	0	PROG	aspect	PROG	ProgressiveAspect	
+42	0	DUR	aspect	DUR	ProgressiveAspect	
+43	0	AOR	aspect	AOR	PerfectiveAspect	
+44	0	INSTR	case	INSTR	InstrumentalCase	
+45	-1	POSS	case	POSS	PossesiveCase	XXX
+46	0	NEUT	gender	NEUT	Neuter	
+47	-1	PERF	tense	PERF	RelativePastTense	SPN
+48	-1	IMPF	tense	IMPF	SimplePastTense	SPN
+49	-1	PRET	tense	PRET	SimplePastTense	SPN
+50	-1	PERF	tense	PERF	RelativePastTense	FRN
+51	-1	IMPF	tense	IMPF	SimplePastTense	FRN
+52	0	CL	clitic	CL	Clitic	
+53	-1	CL	classifier	CL	Classifier	JPN
+54	-1	Clasf	classifier	Clasf	Classifier	KKN
+55	-1	CL	classifier	CL	Classifier	KKN
+56	-1	CL	classifier	CL	Classifier	ITZ
+57	-1	CL	classifier	CL	Classifier	CHN
+58	-1	CL	classifier	CL	Classifier	BNG
+59	-1	CL	classifier	CL	Classifier	YUH
+60	-1	I	classifier	I	Classifier	HUA
+61	-1	II	classifier	II	Classifier	HUA
+62	-1	III	classifier	III	Classifier	HUA
+63	-1	IV	classifier	IV	Classifier	HUA
+64	-1	I	classifier	I	Classifier	DDO
+65	-1	II	classifier	II	Classifier	DDO
+66	-1	III	classifier	III	Classifier	DDO
+67	-1	IV	classifier	IV	Classifier	DDO
+68	-1	II	pos	TI	Verb	MAC
+69	-1	TI	pos	TI	Verb	MAC
+70	-1	2SGM	person	2	SecondPerson	ABV
+71	-1	2SGM	number	SG	Singular	ABV
+72	-1	2SGM	gender	M	Masculine	ABV
+73	-1	FEMSG	number	SG	Singular	ABV
+74	-1	FEMSG	gender	FEM	Feminine	ABV
+75	-1	PRS	tense	PRS	PresentTense	ADY
+76	-1	REMOTE	tense	REMOTE	RemotePastTense	AMI
+77	-1	TODAY	tense	TODAY	HodiernalPastTense	AMI
+78	-1	1ABS	person	1	FirstPerson	ARB
+79	-1	1ABS	case	ABS	AbsolutiveCase	ARB
+80	-1	1DAT	person	1	FirstPerson	BSQ
+81	-1	1DAT	case	DAT	DativeCase	BSQ
+82	-1	1ERG	person	1	FirstPerson	BSQ
+83	-1	1ERG	case	ERG	ErgativeCase	BSQ
+84	-1	3ERG	person	3	ThirdPerson	BSQ
+85	-1	3ERG	case	ERG	ErgativeCase	BSQ
+86	-1	3NOM	person	3	ThirdPerson	BSQ
+87	-1	3NOM	case	NOM	NominativeCase	BSQ
+88	-1	3plDAT	person	3	ThirdPerson	BSQ
+89	-1	3plDAT	number	pl	Plural	BSQ
+90	-1	3plDAT	case	DAT	DativeCase	BSQ
+91	-1	1sgOBJ	person	1	FirstPerson	CKT
+92	-1	1sgOBJ	objectproperty	OBJ	DirectObject	CKT
+93	-1	1sgOBJ	number	sg	Singular	CKT
+94	-1	1sgSUBJ	person	1	FirstPerson	CKT
+95	-1	1sgSUBJ	objectproperty	SUBJ	Subject	CKT
+96	-1	1sgSUBJ	number	sg	Singular	CKT
+97	-1	NOM	pos	NOM	Nominalizer	CNG
+98	-1	obv	person	obv	ObviativePerson	CRL
+99	-1	prox	person	prox	ProximatePerson	CRL
+100	-1	NFUT	tense	NFUT	NonFutureTense	DBL
+101	-1	NOFUT	tense	NOFUT	NonFutureTense	DBL
+102	-1	POSREF	voice	REF	Reflexive	DNS
+103	-1	POSREF	case	POSS	PossesiveCase	DNS
+104	-1	POSSREFL	voice	REFL	Reflexive	DNS
+105	-1	POSSREFL	case	POSS	PossesiveCase	DNS
+106	-1	NOM	pos	NOM	Nominalizer	EDO
+107	-1	PRES	tense	PRES	PresentTense	FIN
+108	-1	COMIT	case	COMIT	ComitativeCase	GCD
+109	-1	3FUT	tense	FUT	FutureTense	GEO
+110	-1	3FUT	person	3	ThirdPerson	GEO
+111	-1	3PRES	tense	PRES	PresentTense	GEO
+112	-1	3PRES	person	3	ThirdPerson	GEO
+113	-1	PRES	tense	PRES	PresentTense	HBR
+114	-1	DETpl	pos	DET	Determiner	IJO
+115	-1	DETpl	number	pl	Plural	IJO
+116	-1	1OBJ	person	1	FirstPerson	JIG
+117	-1	1OBJ	objectproperty	OBJ	DirectObject	JIG
+118	-1	1sgGEN	person	1	FirstPerson	JIG
+119	-1	1sgGEN	number	sg	Singular	JIG
+120	-1	1sgGEN	case	GEN	GenitiveCase	JIG
+121	-1	2sgSubj	person	2	SecondPerson	JIG
+122	-1	2sgSubj	objectproperty	Subj	Subject	JIG
+123	-1	2sgSubj	number	sg	Singular	JIG
+124	-1	1sgPAST	tense	PAST	PastTense	KJS
+125	-1	1sgPAST	person	1	FirstPerson	KJS
+126	-1	1sgPAST	number	sg	Singular	KJS
+127	-1	1sgPRES	tense	PRES	PresentTense	KJS
+128	-1	1sgPRES	person	1	FirstPerson	KJS
+129	-1	1sgPRES	number	sg	Singular	KJS
+130	-1	3sgFUT	tense	FUT	FutureTense	KJS
+131	-1	3sgFUT	person	3	ThirdPerson	KJS
+132	-1	3sgFUT	number	sg	Singular	KJS
+133	-1	3sgPRES	tense	PRES	PresentTense	KJS
+134	-1	3sgPRES	person	3	ThirdPerson	KJS
+135	-1	3sgPRES	number	sg	Singular	KJS
+136	-1	FP	tense	F	FutureTense	LTN
+137	-1	FP	pos	P	Adjective	LTN
+138	-1	DETsg	pos	DET	Determiner	MET
+139	-1	DETsg	number	sg	Singular	MET
+140	-1	1sDAT	person	1	FirstPerson	NEP
+141	-1	1sDAT	number	S	Singular	NEP
+142	-1	1sDAT	case	DAT	DativeCase	NEP
+143	-1	1sERG	person	1	FirstPerson	NEP
+144	-1	1sERG	number	S	Singular	NEP
+145	-1	1sERG	case	ERG	ErgativeCase	NEP
+146	-1	1sNOM	person	1	FirstPerson	NEP
+147	-1	1sNOM	number	S	Singular	NEP
+148	-1	1sNOM	case	NOM	NominativeCase	NEP
+149	-1	2sNOM	person	2	SecondPerson	NEP
+150	-1	2sNOM	number	S	Singular	NEP
+151	-1	2sNOM	case	NOM	NominativeCase	NEP
+152	-1	3sDAT	person	3	ThirdPerson	NEP
+153	-1	3sDAT	number	s	Singular	NEP
+154	-1	3sDAT	case	DAT	DativeCase	NEP
+155	-1	3sNPT	tense	NPT	NonPastTense	NEP
+156	-1	3sNPT	person	3	ThirdPerson	NEP
+157	-1	3sNPT	number	S	Singular	NEP
+158	-1	3sPT	tense	PT	PastTense	NEP
+159	-1	3sPT	person	3	ThirdPerson	NEP
+160	-1	3sPT	number	S	Singular	NEP
+161	-1	12pDAT	person	12	FirstPersonInclusive	NIG
+162	-1	12pDAT	number	p	Plural	NIG
+163	-1	12pDAT	case	DAT	DativeCase	NIG
+164	-1	12pS	person	12	FirstPersonInclusive	NIG
+165	-1	12pS	objectproperty	S	Subject	NIG
+166	-1	12pS	number	p	Plural	NIG
+167	-1	2pREFL	voice	REFL	Reflexive	NRR
+168	-1	2pREFL	person	2p	SecondPerson	NRR
+169	-1	future	tense	future	FutureTense	PRS
+170	-1	3FUT	tense	FUT	FutureTense	QUZ
+171	-1	3FUT	person	3	ThirdPerson	QUZ
+172	-1	COPPST	tense	PST	PastTense	SLV
+173	-1	COPPST	pos	COP	Verb	SLV
+174	-1	AUXFUT	tense	FUT	FutureTense	SRC
+175	-1	AUXFUT	pos	AUX	Verb	SRC
+176	-1	AUXFUT2	tense	FUT2	FutureTense	SRC
+177	-1	AUXFUT2	pos	AUX	Verb	SRC
+178	-1	FsgACC	number	sg	Singular	SRC
+179	-1	FsgACC	gender	F	Feminine	SRC
+180	-1	FsgACC	case	ACC	AccusativeCase	SRC
+181	-1	FsgDAT	number	sg	Singular	SRC
+182	-1	FsgDAT	gender	F	Feminine	SRC
+183	-1	FsgDAT	case	DAT	DativeCase	SRC
+184	-1	MplNOM	number	pl	Plural	SRC
+185	-1	MplNOM	gender	M	Masculine	SRC
+186	-1	MplNOM	case	NOM	NominativeCase	SRC
+187	-1	1plACC	person	1	FirstPerson	STR
+188	-1	1plACC	number	pl	Plural	STR
+189	-1	1plACC	case	ACC	AccusativeCase	STR
+190	-1	2sgNOM	person	2	SecondPerson	STR
+191	-1	2sgNOM	number	sg	Singular	STR
+192	-1	2sgNOM	case	NOM	NominativeCase	STR
+193	-1	3ABS	person	3	ThirdPerson	STR
+194	-1	3ABS	case	ABS	AbsolutiveCase	STR
+195	-1	3ERG	person	3	ThirdPerson	STR
+196	-1	3ERG	case	ERG	ErgativeCase	STR
+197	-1	3OBJ	person	3	ThirdPerson	SWA
+198	-1	3OBJ	objectproperty	OBJ	DirectObject	SWA
+199	-1	3SUBJ	person	3	ThirdPerson	SWA
+200	-1	3SUBJ	objectproperty	SUBJ	Subject	SWA
+201	-1	PRS	tense	PRS	PresentTense	TCV
+202	-1	PASTC	tense	PAST	PastTense	YAQ
+203	-1	PASTC	aspect	C	ProgressiveAspect	YAQ
+204	-1	1plA	person	1	FirstPerson	YEE
+205	-1	1plA	number	pl	Plural	YEE
+206	-1	1plA	case	A	AccusativeCase	YEE
+207	-1	1plE	person	1	FirstPerson	YEE
+208	-1	1plE	number	pl	Plural	YEE
+209	-1	1plE	case	E	ErgativeCase	YEE
+210	-1	1sgA	person	1	FirstPerson	YEE
+211	-1	1sgA	number	sg	Singular	YEE
+212	-1	1sgA	case	A	AccusativeCase	YEE
+213	-1	1sgE	person	1	FirstPerson	YEE
+214	-1	1sgE	number	sg	Singular	YEE
+215	-1	1sgE	case	E	ErgativeCase	YEE
+216	-1	2dlA	person	2	SecondPerson	YEE
+217	-1	2dlA	number	dl	Dual	YEE
+218	-1	2dlA	case	A	AccusativeCase	YEE
+219	-1	2pcN	person	2	SecondPerson	YEE
+220	-1	2pcN	number	pc	Paucal	YEE
+221	-1	2pcN	case	N	NominativeCase	YEE
+222	-1	2plA	person	2	SecondPerson	YEE
+223	-1	2plA	number	pl	Plural	YEE
+224	-1	2plA	case	A	AccusativeCase	YEE
+225	-1	2plE	person	2	SecondPerson	YEE
+226	-1	2plE	number	pl	Plural	YEE
+227	-1	2plE	case	E	ErgativeCase	YEE
+228	-1	2plN	person	2	SecondPerson	YEE
+229	-1	2plN	number	pl	Plural	YEE
+230	-1	2plN	case	N	NominativeCase	YEE
+231	-1	2sgE	person	2	SecondPerson	YEE
+232	-1	2sgE	number	sg	Singular	YEE
+233	-1	2sgE	case	E	ErgativeCase	YEE
+234	-1	2sgN	person	2	SecondPerson	YEE
+235	-1	2sgN	number	sg	Singular	YEE
+236	-1	2sgN	case	N	NominativeCase	YEE
+237	-1	3dlN	person	3	ThirdPerson	YEE
+238	-1	3dlN	number	dl	Dual	YEE
+239	-1	3dlN	case	N	NominativeCase	YEE
+240	-1	3plE	person	3	ThirdPerson	YEE
+241	-1	3plE	number	pl	Plural	YEE
+242	-1	3plE	case	E	ErgativeCase	YEE
+243	-1	3plN	person	3	ThirdPerson	YEE
+244	-1	3plN	number	pl	Plural	YEE
+245	-1	3plN	case	N	NominativeCase	YEE
+246	-1	3sgE	person	3	ThirdPerson	YEE
+247	-1	3sgE	number	sg	Singular	YEE
+248	-1	3sgE	case	E	ErgativeCase	YEE
+249	-1	IVsg	number	sg	Singular	YEE
+250	-1	IVsg	classifier	IV	Classifier	YEE
+251	-1	NRFUT	tense	NRFUT	CloseFutureTense	YEE
+252	-1	PAST	tense	PAST	PastTense	YEE
+253	-1	REMOTE	tense	REMOTE	RemotePastTense	YEE
+254	0	COP	pos	COP	Copula	
+255	0	DET	pos	DET	Determiner	
+256	0	DIMIN	size	dimin	Diminutive	
+257	0	HAB	aspect	HAB	HabitualAspect	
+258	0	HABIT	aspect	HABIT	HabitualAspect	
+259	0	IRR	modality	IRREALIS	Irrealis	
+260	0	IRREALIS	modality	IRREALIS	Irrealis	
+261	0	NONFUT	tense	NONFUT	NonFutureTense	
+262	0	NONPAST	tense	NONPAST	NonPastTense	
+263	0	NONPST	tense	NONPST	NonPastTense	
+264	0	NPST	tense	NPST	NonPastTense	
+265	0	NPT	tense	NPT	NonPastTense	
+266	0	OBL	objectproperty	OBL	ObliqueObject	
+267	0	PROGR	aspect	PROGR	ProgressiveAspect	
+268	0	REALIS	modality	REALIS	Realis	
+269	0	REPET	aspect	REPET	IterativeAspect	
+270	0	NMLZ	pos	NMLZ	Nominalizer	
+271	0	NEG	polarity	NEG	Negative	
+272	0	POSS	case	POSS	PossessiveCase	
+273	0	PASSIVE	voice	PASSIVE	PassiveVoice	
+274	0	REFL	pos	REFL	ReflexivePronoun	
+275	0	IMP	mood	IMP	ImperativeMood	
+276	0	CAUS	voice	CAUS	CausativeVoice	
+277	0	COMP	pos	COMP	Complementizer	
+278	0	OBJ	relation	OBJ	Object	
+279	0	APPL	voice	APPL	ApplicativeVoice	
+280	0	PF	aspect	PF	PerfectiveAspect	
+281	0	PRS	tense	PRS	PresentTense	
+282	0	WH	pos	WH	WH-word	
+283	0	ADV	pos	ADV	Adverb	
+284	0	ADJ	pos	ADJ	Adjective	
+285	0	SUBJ	relation	SUBJ	Subject	
+286	-1	3NNOM	person	3	ThirdPerson	YAQ
+287	-1	3NNOM	case	NNOM	ObliqueCase	YAQ
+288	-1	3REFL	person	3	Thirdperson	YAQ
+289	-1	3REFL	pos	REFL	ReflexivePronoun	YAQ
+290	-1	BENEF	case	BENEF	BenefactiveCase	YAQ
+291	-1	COM	case	COM	ComitativeCase	YAQ
+292	-1	COMPL	aspect	COMPL	CompletiveAspect	YAQ
+293	-1	CONT	aspect	CONT	ContinuousAspect	YAQ
+294	-1	DEM	pos	DEM	Demonstrative	YAQ
+295	-1	DES	mood	DES	DesiderativeMood	YAQ
+296	-1	DESID	mood	DESID	DesiderativeMood	YAQ
+297	-1	DIR	case	DIR	LocationalCase	YAQ
+298	-1	GER	pos	GER	Gerund	YAQ
+299	-1	IMP	mood	IMP	ImperativeMood	YAQ
+300	-1	INC	aspect	INC	InceptiveAspect	YAQ
+301	-1	INCEP	aspect	INCEP	InceptiveAspect	YAQ
+302	-1	IND	mood	IND	IndicativeMood	YAQ
+303	-1	INSTR	case	INSTR	InstrumentalCase	YAQ
+304	-1	INTR	pos	INTR	IntransitiveVerb	YAQ
+305	-1	INTT	aspect	INTT	IntentiveAspect	YAQ
+306	-1	NEG	polarity	NEG	Negative	YAQ
+307	-1	NNOM	case	NNOM	ObliqueCase	YAQ
+308	-1	PPL	pos	PPL	Participle	YAQ
+309	-1	REL	pos	REL	Relativizer	YAQ
+310	-1	SUB	pos	SUB	SubordinatingConnective	YAQ
+311	-1	TERM	aspect	TERM	TerminativeAspect	YAQ
+312	-1	VERB	pos	VERB	Verb	YAQ
+313	-1	INTER	mood	INTER	Interogative	PIA
+314	-1	CONT	aspect	CONT	ContinuativeAspect	PIA
+315	-1	DEM	pos	DEM	Demonstrative	PIA
+316	-1	ART	pos	ART	Article	PIA
+317	-1	CONJ	pos	CONJ	Conjunction	PIA
+318	-1	DIM	size	DIM	Diminutive	PIA
+319	-1	OBVAUX	person	OBV	Obviative	PIA
+320	-1	OBVAUX	pos	AUX	Auxilliary	PIA
+321	-1	SUBJ	modality	SUBJ	Subjunctive	PIA
+322	-1	USIT	aspect	USIT	UsitativeAspect	PIA
+323	-1	AN	pos	AN	Enclitic	NHN
+324	-1	AND	case	AND	AntidativeCase	NHN
+325	-1	ANTIPAS	voice	ANTIPAS	AntipassiveVoice	NHN
+326	-1	APL	voice	APL	ApplicativeVoice	NHN
+327	-1	COM	aspect	COM	CompletiveAspect	NHN
+328	-1	COP	pos	COP	Copula	NHN
+329	-1	DET	pos	DET	Determiner	NHN
+330	-1	DIR	case	DIR	DirectionalCase	NHN
+331	-1	EV	evidential	EV	EvidentialValue	NHN
+332	-1	IRRI	modality	IRRI	Irrealis	NHN
+333	-1	LIG	pos	LIG	Ligature	NHN
+334	-1	OBJ	relation	OBJ	Object	NHN
+335	-1	PAH	evidential	PAH	AuditoryEvidential	NHN
+336	-1	POS	case	POS	PossessiveCase	NHN
+337	-1	PRET	tense	PRET	PreteriteTense	NHN
+338	-1	PRON	pos	PRON	Pronoun	NHN
+339	-1	SUJ	relation	SUJ	Subject	NHN
+340	-1	3SUJ	person	3	ThirdPerson	NHN
+341	-1	3SUJ	relation	SUJ	Subject	NHN
+342	-1	3OBJ	person	3	ThirdPerson	NHN
+343	-1	3OBJ	relation	OBJ	Object	NHN
+344	-1	1SUJ	person	1	FirstPerson	NHN
+345	-1	1SUJ	relation	SUJ	Subject	NHN
+346	-1	1OBJ	person	1	FirstPerson	NHN
+347	-1	1OBJ	relation	OBJ	Object	NHN
+348	-1	1POS	person	1	FirstPerson	NHN
+349	-1	1POS	case	POS	PossessiveCase	NHN
+350	-1	2SUJ	person	2	ThirdPerson	NHN
+351	-1	2SUJ	relation	SUJ	Subject	NHN
+352	-1	2OBJ	person	2	ThirdPerson	NHN
+353	-1	2OBJ	relation	OBJ	Object	NHN
+354	-1	V	pos		Verb	NHN
+355	-1	PASS	voice	PASS	PassiveVoice	YAQ
+356	0	AUX	pos	AUX	Auxilliary	
+357	-1	ABS	case	ABS	NonPossessedCase	NCI
+358	-1	ABS	case	ABS	NonPossessedCase	NHN
+359	-1	ABS	case	ABS	NonPossessedCase	PIA
+360	-1	ABS	case	ABS	NonPossessedCase	YAQ
+361	-1	ABS	case	ABS	NonPossessedCase	XNEV
+362	0	TOP	discourse	TOP	Topic	
+363	0	FOC	discourse	FOC	Focus	
+364	-1	PC	aspect	C	ContinuousAspect	AER
+365	-1	CONTIN	aspect	CONTIN	ContinuousAspect	NIG
+366	-1	PresImpf	aspect	Impf	ImperfectiveAspect	WBP
+367	-1	PastImpf	aspect	Impf	ImperfectiveAspect	WBP
+368	-1	Incho	aspect	Incho	InceptiveAspect	WBP
+369	-1	INCH	aspect	INCH	InceptiveAspect	WBP
+370	-1	PRESIMP	aspect	IMP	ImperfectiveAspect	WBP
+371	-1	INST	case	INST	InstrumentalCase	AER
+372	-1	PURP	case	PURP	PurposiveCase	DBL
+373	-1	INST	case	INST	InstrumentalCase	DBL
+374	-1	INST	case	INST	InstrumentalCase	DBL
+375	-1	ABL	case	ABL	AblativeCase	DJD
+376	-1	ALL	case	ALL	AllativeCase	DJD
+377	-1	PURP	case	PURP	PurposiveCase	GBC
+378	-1	2GEN	case	GEN	GenitiveCase	GBC
+379	-1	ALLAT	case	ALLAT	AllativeCase	GBC
+380	-1	ABL	case	ABL	AblativeCase	GNI
+381	-1	PROP	case	PROP	ProprietiveCase	GYD
+382	-1	MLOC	case	MLOC	LocativeCase	GYD
+383	-1	1sgNOM	case	NOM	NominativeCase	GYD
+384	-1	3sgNOM	case	NOM	NominativeCase	GYD
+385	-1	ALL	case	ALL	AllativeCase	JIG
+386	-1	INST	case	INST	InstrumentalCase	JIG
+387	-1	2dlNOM	case	NOM	NominativeCase	JIG
+388	-1	2dlERG	case	ERG	ErgativeCase	JIG
+389	-1	Ben	case	Ben	BenefactiveCase	NGK
+390	-1	3POSSD	case	POSSD	PossessedCase	NGK
+391	-1	PURP	case	PURP	PurposiveCase	PIT
+392	-1	3plERG	case	ERG	ErgativeCase	THD
+393	-1	3Dat	case	Dat	DativeCase	WBP
+394	-1	El	case	El	ElativeCase	WBP
+395	-1	PART	case	PART	PartiveCase	WBP
+396	-1	PotC	case	Pot	PotentialCase	WBP
+397	-1	POSSs	case	POSS	PossessiveCase	WBP
+398	-1	3sgDat	case	Dat	DativeCase	WBP
+399	-1	ELAT	case	ELAT	ElativeCase	WBP
+400	-1	CLITIC	clitic	CLITIC	Clitic	DDJ
+401	-1	DEIC	discourse	DEIC	Deictic	DBL
+402	-1	Top	discourse	Top	Topic	WBP
+403	-1	topic	discourse	topic	Topic	WYB
+404	-1	IMPV	mood	IMPV	ImperativeMood	JIG
+405	-1	NEGIMPV	mood	NEGIMPV	ImperativeMood	JIG
+406	-1	2dlIMPV	mood	IMPV	ImperativeMood	JIG
+407	-1	2plIMPV	mood	IMPV	ImperativeMood	JIG
+408	-1	Imperative	mood	Imperative	ImperativeMood	WBP
+409	-1	anim	gender	anim	AnimateGender	JIG
+410	-1	INDIC	mood	INDIC	IndicativeMood	GCD
+411	-1	3D	number	D	Dual	GBC
+412	-1	12PL	number	PL	Plural	GBC
+413	-1	3sS	number	s	Singular	GUP
+414	-1	1sgNOM	number	sg	Singular	GYD
+415	-1	3sgNOM	number	sg	Singular	GYD
+416	-1	1dl	number	dl	Dual	JIG
+417	-1	2dl	number	dl	Dual	JIG
+418	-1	dl	number	dl	Dual	JIG
+419	-1	3dl	number	dl	Dual	JIG
+420	-1	1dlInc	number	dl	Dual	JIG
+421	-1	1plInc	number	pl	Plural	JIG
+422	-1	2dlNOM	number	dl	Dual	JIG
+423	-1	2dlERG	number	dl	Dual	JIG
+424	-1	2dlIMPV	number	dl	Dual	JIG
+425	-1	2plIMPV	number	pl	Dual	JIG
+426	-1	3D	number	D	Dual	MPJ
+427	-1	3du	number	du	Dual	NGK
+428	-1	DU	number	DU	Dual	NGK
+429	-1	DU	number	DU	Dual	PIT
+430	-1	3plERG	number	pl	Plural	THD
+431	-1	3Dual	number	Dual	Dual	WBP
+432	-1	1plExcl	number	pl	Plural	WBP
+433	-1	DU	number	DU	Dual	WBP
+434	-1	1sS	number	s	Singular	WBP
+435	-1	1sS	number	S	Subject	WBP
+436	-1	3pS	number	p	Plural	WBP
+437	-1	3plObj	number	pl	Plural	WBP
+438	-1	3plSUBJ	number	pl	Plural	WBP
+439	-1	3ds	number	d	Dual	WBP
+440	-1	1sgO	number	sg	Singular	WBP
+441	-1	2sgOb	number	sg	Singular	WBP
+442	-1	3SgO	number	Sg	Singular	WBP
+443	-1	Pauc	number	Pauc	Paucal	WBP
+444	-1	3plS	number	pl	Plural	WBP
+445	-1	3plS	number	S	Subject	WBP
+446	-1	1sgOb	number	sg	Singular	WBP
+447	-1	3plOb	number	pl	Plural	WBP
+448	-1	3sgDat	number	sg	Singular	WBP
+449	-1	1sgS	number	sg	Singular	WBP
+450	-1	1sO	number	s	Singular	WBP
+451	-1	3pO	number	p	Plural	WBP
+452	-1	3sgSUBJ	number	sg	Singular	WBP
+453	-1	3dlSUBJ	number	dl	Dual	WBP
+454	-1	1P	number	P	Plural	WBP
+455	-1	3pl	number	pl	Plural	WRM
+456	-1	NS	number	NS	NonSingular	WRM
+457	-1	DU	number	DU	Dual	WRR
+458	-1	3NONSG	number	NONSG	NonSingular	WTT
+459	-1	1p	person	1p	FirstPerson	DBL
+460	-1	2p	person	2p	SecondPerson	DBL
+461	-1	3D	person	3	ThirdPerson	GBC
+462	-1	2GEN	person	2	SecondPerson	GBC
+463	-1	12PL	person	12	FirstPersonInclusive	GBC
+464	-1	3sS	person	3	ThirdPerson	GUP
+465	-1	1sgNOM	person	1	FirstPerson	GYD
+466	-1	3sgNOM	person	3	ThirdPerson	GYD
+467	-1	1dl	person	1	FirstPerson	JIG
+468	-1	Exc	person	Exc	FirstPersonExclusive	JIG
+469	-1	2dl	person	2	SecondPerson	JIG
+470	-1	3dl	person	3	ThirdPerson	JIG
+471	-1	1dlInc	person	1	FirstPerson	JIG
+472	-1	1dlInc	person	inc	FirstPersonInclusive	JIG
+473	-1	1plInc	person	1	FirstPerson	JIG
+474	-1	1plInc	person	inc	FirstPersonInclusive	JIG
+475	-1	2dlNOM	person	2	SecondPerson	JIG
+476	-1	2dlERG	person	2	SecondPerson	JIG
+477	-1	2dlIMPV	person	2	SecondPerson	JIG
+478	-1	2plIMPV	person	2	SecondPerson	JIG
+479	-1	3D	person	3	ThirdPerson	MPJ
+480	-1	3du	person	3	ThirdPerson	NGK
+481	-1	3POSSD	person	3	ThirdPerson	NGK
+482	-1	3plERG	person	3	ThirdPerson	THD
+483	-1	3Dat	person	3	ThirdPerson	WBP
+484	-1	2SGOBJ	person	2	SecondPerson	WBP
+485	-1	3Dual	person	3	ThirdPerson	WBP
+486	-1	1plExcl	person	1	FirstPerson	WBP
+487	-1	1plExcl	person	Excl	FirstPersonExclusive	WBP
+488	-1	1sS	person	1	FirstPerson	WBP
+489	-1	3pS	person	3	ThirdPerson	WBP
+490	-1	2sgO	person	2	SecondPerson	WBP
+491	-1	3plObj	person	3	ThirdPerson	WBP
+492	-1	3plSUBJ	person	3	ThirdPerson	WBP
+493	-1	EXCL	person	EXCL	FirstPersonExclusive	WBP
+494	-1	3ds	person	3	ThirdPerson	WBP
+495	-1	1sgO	person	1	FirstPerson	WBP
+496	-1	2sgOb	person	2	SecondPerson	WBP
+497	-1	1subj	person	1	FirstPerson	WBP
+498	-1	2obj	person	2	SecondPerson	WBP
+499	-1	1incSu	person	1inc	FirstPersonInclusive	WBP
+500	-1	3SgO	person	3	ThirdPerson	WBP
+501	-1	3plS	person	3	ThirdPerson	WBP
+502	-1	1sgOb	person	1	FirstPerson	WBP
+503	-1	3plOb	person	3	ThirdPerson	WBP
+504	-1	3sgDat	person	3	ThirdPerson	WBP
+505	-1	1sgS	person	1	FirstPerson	WBP
+506	-1	1sO	person	1	FirstPerson	WBP
+507	-1	3pO	person	3	ThirdPerson	WBP
+508	-1	3sgSUBJ	person	3	ThirdPerson	WBP
+509	-1	3dlSUBJ	person	3	ThirdPerson	WBP
+510	-1	1P	person	1	FirstPerson	WBP
+511	-1	3pl	person	3	ThirdPerson	WRM
+512	-1	3NONSG	person	3	ThirdPerson	WRR
+513	-1	TR	pos	TR	TransitiveVerb	GCD
+514	-1	TRANS	pos	TRANS	TransitiveVerb	GCD
+515	-1	INTRANS	pos	INTRANS	IntransitiveVerb	GCD
+516	-1	NMZR	pos	NMZR	Nominalizer	GYD
+517	-1	CONTR	pos	CONTR	EmphaticPronoun	IBD
+518	-1	INTRS	pos	INTRS	IntransitiveVerb	KTG
+519	-1	TRANS	pos	TRANS	TransitiveVerb	MEM
+520	-1	COPULA	pos	COPULA	Copula	NIG
+521	-1	INF	pos	INF	InfinitiveVerb	WBP
+522	-1	INFIN	pos	INFIN	InfinitiveVerb	WBP
+523	-1	ObjC	pos	C	Complementizer	WBP
+524	-1	FactC	pos	C	Complementizer	WBP
+525	-1	NfactC	pos	C	Complementizer	WBP
+526	-1	RelC	pos	C	Complementizer	WBP
+527	-1	ObvC	pos	C	Complementizer	WBP
+528	-1	PotC	pos	C	Complementizer	WBP
+529	-1	SubjC	pos	C	Complementizer	WBP
+530	-1	COPULA	pos	COPULA	Copula	ZMU
+531	-1	3sS	relation	S	Subject	GUP
+532	-1	ObjC	relation	Obj	Object	WBP
+533	-1	2SGOBJ	number	SG	Singular	WBP
+534	-1	2SGOBJ	relation	OBJ	Object	WBP
+535	-1	3pS	relation	S	Subject	WBP
+536	-1	2sgO	number	sg	Singular	WBP
+537	-1	2sgO	relation	O	Object	WBP
+538	-1	3plObj	relation	Obj	Object	WBP
+539	-1	3plSUBJ	relation	SUBJ	Subject	WBP
+540	-1	3ds	relation	s	Subject	WBP
+541	-1	1sgO	relation	O	Object	WBP
+542	-1	2sgOb	relation	Ob	Object	WBP
+543	-1	1subj	relation	subj	Subject	WBP
+544	-1	2obj	relation	obj	Object	WBP
+545	-1	1incSu	relation	Subj	Subject	WBP
+546	-1	3SgO	relation	O	Object	WBP
+547	-1	POSSs	relation	s	Subject	WBP
+548	-1	SubjC	relation	Subj	Subject	WBP
+549	-1	1sgOb	relation	Ob	Object	WBP
+550	-1	3plOb	relation	Ob	Object	WBP
+551	-1	1sgS	relation	S	Subject	WBP
+552	-1	1sO	relation	O	Object	WBP
+553	-1	3pO	relation	O	Object	WBP
+554	-1	3sgSUBJ	relation	SUBJ	Subject	WBP
+555	-1	3dlSUBJ	relation	SUBJ	Subject	WBP
+556	-1	PC	tense	P	PastTense	AER
+557	-1	TNS	tense	TNS	Tense	DBL
+558	-1	DIST	tense	DIST	Distant_PastTense	JIG
+559	-1	PA	tense	PA	PastTense	NIG
+560	-1	NPAST	tense	NPAST	NonPastTense	WBP
+561	-1	PresImpf	tense	Pres	PresentTense	WBP
+562	-1	PastImpf	tense	Past	PastTense	WBP
+563	-1	NP	tense	NP	NonPastTense	WBP
+564	-1	PRESIMP	tense	PRES	PresentTense	WBP
+565	-1	APM	voice	APM	AntipassiveVoice	DBL
+566	-1	ANTI	voice	ANTI	AntipassiveVoice	DBL
+567	-1	ANTIPASS	voice	ANTIPASS	AntipassiveVoice	DBL
+568	-1	ACT	voice	ACT	ActiveVoice	GYD
+569	-1	RECIP	voice	RECIP	ReciprocalMiddleVoice	GYD
+570	-1	narr	voice	narr	Narrative_Voice	JIG
+571	-1	RR	voice	RR	Reciprocal/ReflexiveMiddleVoice	NGK
+572	-1	RECIP	voice	RECIP	ReciprocalMiddleVoice	THD
+573	-1	REFLEX	voice	REFLEX	ReflexiveMiddleVoice	WBP
+574	-1	cause	voice	cause	CausativeVoice	WBP
+575	-1	APASS	voice	APASS	AntipassiveVoice	WBP
+576	-1	RR	voice	RR	ReciprocalMiddleVoice	WBP
+577	-1	AP	voice	AP	AntipassiveVoice	WRG
+578	-1	INF	pos	INF	InfinitiveVerb	HBR
+579	0	ANTIP	voice	ANTIP	AntipassiveVoice	
+580	0	ART	pos	ART	Article	
+581	0	CLF	classifier	CLF	Classifier	
+582	0	COMPL	aspect	COMPL	CompletiveAspect	
+583	0	DECL	modality	DECL	Declarative	
+584	0	DEM	pos	DEM	Demonstrative	
+585	0	DISTR	aspect	DISTR	DistributiveAspect	
+586	0	1stIncl	person	1stIncl	FirstPersonInclusive	
+587	0	1stExcl	person	1stExcl	FirstPersonExclusive	
+588	0	INF	pos	INF	InfinitiveVerb	
+589	0	IPFV	aspect	IPFV	ImperfectiveAspect	
+590	0	LOC	case	LOC	LocativeCase	
+591	0	PRED	pos	PRED	PredicativeVerb	
+592	0	Passive	voice	Passive	PassiveVoice	
+593	0	PROH	mood	PROH	ProhibitiveMood	
+594	0	PROHIB	mood	PROHIB	ProhibitiveMood	
+595	0	OBV	person	OBV	ObviativePerson	
+596	0	PROX	person	PROX	ProximatePerson	
+597	0	QUOT	modality	QUOT	Quotative	
+598	0	SBJV	modality	SBJV	Subjunctive	
+599	0	VOC	case	VOC	VocativeCase	
+600	-1	1ms	person	1	FirstPerson	NID
+601	-1	1ms	gender	m	Masculine	NID
+602	-1	1ms	number	s	Singular	NID
+603	-1	PASTNEG	tense	PAST	PastTense	MPC
+604	-1	PASTNEG	polarity	NEG	Negative	MPC
+605	-1	PNEG	polarity	NEG	Negative	MPC
+606	-1	PNEG	tense	P	PastTense	MPC
+607	-1	DYAD	classifier	DYAD	DyadicMorpheme	RMB
+608	-1	DYAD	classifier	DYAD	DyadicMorpheme	NID
+609	-1	DYAD	classifier	DYAD	DyadicMorpheme	RIT
+610	-1	1aS	person	1	FirstPerson	DIF
+611	-1	1aS	number	a	Plural	DIF
+612	-1	1aS	relation	S	Subject	DIF
+613	-1	2S	person	2	SecondPerson	GUE
+614	-1	2S	number	S	Singular	GUE
+615	-1	3MA	person	3	ThirdPerson	MPH
+616	-1	3MA	gender	MA	Masculine	MPH
+617	0	PAUCAL	number	PAUCAL	Paucal	
+618	-1	1	person	1	FirstPerson	HUA
+619	-1	1p	person	1	FirstPerson	HUA
+620	-1	1p	number	PL	Plural	HUA
+621	-1	1S	person	1	FirstPerson	HUA
+622	-1	1S	number	SING	Singular	HUA
+623	-1	1s	number	SING	Singular	HUA
+624	-1	1s	person	1	FirstPerson	HUA
+625	-1	2	person	2	SecondPerson	HUA
+626	-1	2f	person	2	SecondPerson	HUA
+627	-1	2f	gender	FEM	Feminine	HUA
+628	-1	2fs	person	2	SecondPerson	HUA
+629	-1	2fs	gender	FEM	Feminine	HUA
+630	-1	2fs	number	SING	Singular	HUA
+631	-1	2m	number	2	SecondPerson	HUA
+632	-1	2m	gender	MASC	Masculine	HUA
+633	-1	2ms	person	2	SecondPerson	HUA
+634	-1	2ms	gender	MASC	Masculine	HUA
+635	-1	2ms	number	SING	Singular	HUA
+636	-1	2p	person	2	SecondPerson	HUA
+637	-1	2p	number	PL	Plural	HUA
+638	-1	2pl	person	2	SecondPerson	HUA
+639	-1	2pl	number	PL	Plural	HUA
+640	-1	2sf	person	2	SecondPerson	HUA
+641	-1	2sf	number	SING	Singular	HUA
+642	-1	2sf	gender	FEM	Feminine	HUA
+643	-1	2sm	person	2	SecondPerson	HUA
+644	-1	2sm	gender	MASC	Masculine	HUA
+645	-1	2sm	number	SING	Singular	HUA
+646	-1	3	person	3	ThirdPerson	HUA
+647	-1	3fm	person	3	ThirdPerson	HUA
+648	-1	3fm	number	SING	Singular	HUA
+649	-1	3fm	gender	MASC	Masculine	HUA
+650	-1	3fs	person	3	ThirdPerson	HUA
+651	-1	3fs	gender	FEM	Feminine	HUA
+652	-1	3fs	number	SING	Singular	HUA
+653	-1	3ms	person	3	ThirdPerson	HUA
+654	-1	3ms	gender	MASC	Masculine	HUA
+655	-1	3ms	number	SING	Singular	HUA
+656	-1	3p	person	3	ThirdPerson	HUA
+657	-1	3p	number	PL	Plural	HUA
+658	-1	3PCompl	person	3	ThirdPerson	HUA
+659	-1	3PCompl	number	PL	Plural	HUA
+660	-1	3PCompl	POS	COMP	ComplementMarker	HUA
+661	-1	3pl	person	3	ThirdPerson	HUA
+662	-1	3pl	number	PL	Plural	HUA
+663	-1	3PRel	person	3	ThirdPerson	HUA
+664	-1	3PRel	number	PL	Plural	HUA
+665	-1	3PRel	POS	REL	RelativeMarker	HUA
+666	-1	3sg	person	3	ThirdPerson	HUA
+667	-1	3sg	number	SING	Singular	HUA
+668	-1	3SM	person	3	ThirdPerson	HUA
+669	-1	3SM	gender	MASC	Masculine	HUA
+670	-1	3SM	number	SING	Singular	HUA
+671	-1	3sm	person	3	ThirdPerson	HUA
+672	-1	3sm	gender	MASC	Masculine	HUA
+673	-1	3sm	number	SING	Singular	HUA
+674	-1	3SMRel	person	3	ThirdPerson	HUA
+675	-1	3SMRel	gender	MASC	Masculine	HUA
+676	-1	3SMRel	number	SING	Singular	HUA
+677	-1	3SMRel	POS	REL	RelativeMarker	HUA
+678	-1	4	person	4	FourthPerson	HUA
+679	-1	A	classifier	VERBA	AFormVerb	HUA
+680	-1	aFOC	discourse	FOC	FocusMarker	HUA
+681	-1	B	classifier	VERBB	BFormVerb	HUA
+682	-1	C	classifier	VERBC	CFormVerb	HUA
+683	-1	CMPL	aspect	COMPL	CompletiveAspect	HUA
+684	-1	COMPL	POS	COMP	ComplementMarker	HUA
+685	-1	Compl	POS	COMP	ComplementMarker	HUA
+686	-1	Cont	aspect	CONT	ContinuousAspect	HUA
+687	-1	cop	POS	COP	Copula	HUA
+688	-1	D	classifier	VERBD	DFormVerb	HUA
+689	-1	DA	POS	DA	DaForm	HUA
+690	-1	DD	POS	DET	DefiniteDeterminer	HUA
+691	-1	DEF	POS	DET	DefiniteDeterminer	HUA
+692	-1	DEP	POS	DEP	Dependent	HUA
+693	-1	DL	POS	DET	DefiniteDeterminer	HUA
+694	-1	DN	POS	DN	DerivedNominal	HUA
+695	-1	Dn	POS	DN	DerivedNominal	HUA
+696	-1	DO	POS	DO	DirectObject	HUA
+697	-1	DU	number	DUAL	Dual	HUA
+698	-1	EVE	mood	EVE	Eventual	HUA
+699	-1	EVID	POS	EVID	EvidentialityMarker	HUA
+700	-1	f	gender	FEM	Feminine	HUA
+701	-1	FM	discourse	FOC	FocusMarker	HUA
+702	-1	Gr1	classifier	GR1	Grade1Verb	HUA
+703	-1	Gr2	classifier	GR2	Grade2Verb	HUA
+704	-1	Gr3	classifier	GR3	Grade3Verb	HUA
+705	-1	Gr4	classifier	GR4	Grade4Verb	HUA
+706	-1	Gr6	classifier	GR6	Grade6Verb	HUA
+707	-1	Gr7	classifier	GR7	Grade7Verb	HUA
+708	-1	Gr8	classifier	GR8	Grade8Verb	HUA
+709	-1	ICP	POS	ICP	IntransitiveCopyPronoun	HUA
+710	-1	IDEO	classifier	IDEO	Ideophone	HUA
+711	-1	IMPER	mood	IMP	ImperativeMood	HUA
+712	-1	IMPERF	aspect	IMPF	ImperfectiveAspect	HUA
+713	-1	INF	classifier	INF	Infinitive	HUA
+714	-1	IOM	POS	IOM	IndirectObjectMarker	HUA
+715	-1	IPFV	aspect	IMPF	ImperfectiveAspect	HUA
+716	-1	Irr	classifier	IRR	Irregular	HUA
+717	-1	IVN	classifier	I	Classifier	HUA
+718	-1	IVN	POS	VN	VerbalNoun	HUA
+719	-1	IX	classifier	GR9	Grade9Verb	HUA
+720	-1	m	gender	MASC	Masculine	HUA
+721	-1	MA	POS	MA	MaForm	HUA
+722	-1	MOD	classifier	MOD	Modal	HUA
+723	-1	ms	gender	MASC	Masculine	HUA
+724	-1	ms	number	SING	Singular	HUA
+725	-1	N	POS	N	Noun	HUA
+726	-1	Neg	polarity	NEG	Negative	HUA
+727	-1	neg	polarity	NEG	Negative	HUA
+728	-1	p	number	PL	Plural	HUA
+729	-1	pf	aspect	PERF	PerfectiveAspect	HUA
+730	-1	pl	number	PL	Plural	HUA
+731	-1	POT	aspect	POT	PotentialAspect	HUA
+732	-1	PST	aspect	PERF	PerfectiveAspect	HUA
+733	-1	Q	POS	Q	QuestionMorpheme	HUA
+734	-1	Rcnt	aspect	CONT	ContinuousAspect	HUA
+735	-1	REDUP	POS	REDUP	Reduplication	HUA
+736	-1	REFLEX	POS	REFLEX	Reflexive	HUA
+737	-1	Rel	POS	REL	RelativeMarker	HUA
+738	-1	REL	POS	REL	relativeMarker	HUA
+739	-1	RI	POS	RI	RelativeImperfective	HUA
+740	-1	RP	POS	RP	RelativePerfective	HUA
+741	-1	Rpf	POS	RP	RelativePerfective	HUA
+742	-1	S	number	SING	Singular	HUA
+743	-1	s	number	SING	Singular	HUA
+744	-1	sf	number	SING	Singular	HUA
+745	-1	sf	gender	FEM	Feminine	HUA
+746	-1	sg	number	SING	Singular	HUA
+747	-1	SP	aspect	RP	RelativePerfective	HUA
+748	-1	SUB	mood	SUB	SubjunctiveMood	HUA
+749	-1	V	classifier	V	Classifier	HUA
+750	-1	VI	classifier	VI	Classifier	HUA
+751	-1	VII	classifier	VII	Classifier	HUA
+752	-1	VIII	classifier	VIII	Classifier	HUA
+753	-1	VN	POS	VN	VerbalNoun	HUA
+754	-1	X	classifier	X	Classifier	HUA
