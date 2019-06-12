@@ -109,6 +109,7 @@ This file contains an abbreviated table of grams and their “gold”
 concepts that were extracted from the ODIN database. 
 
 The citation for this tag set is:
+
 William Lewis and Fei Xia, 2010. Developing ODIN: A Multilingual 
 Repository of Annotated Language Data for Hundreds of the World's 
 Languages, Journal of Literary and Linguistic Computing (LLC), 
@@ -120,6 +121,7 @@ of grams identified in particular papers for particular languages,
 extracted from the ODIN database.
 
 The citation for this tag set is:
+
 William Lewis and Fei Xia, 2010. Developing ODIN: A Multilingual 
 Repository of Annotated Language Data for Hundreds of the World's 
 Languages, Journal of Literary and Linguistic Computing (LLC), 
